@@ -25,7 +25,7 @@ public class Demo1010ApplicationTests {
     @Test
     public void addUser(){
         User user = new User();
-        user.setName("lili");
+        user.setName("张三");
         user.setAge(33);
         user.setEmail("lily@qq.com");
 
@@ -45,6 +45,16 @@ public class Demo1010ApplicationTests {
 
         int i = userMapper.updateById(user);
         System.out.println(i);
+    }
+
+    //测试乐观锁
+    @Test
+    public void testOptimisticLocker(){
+        //根据id查询数据
+        User user = userMapper.selectById(1298922534429331457L);
+        //进行修改
+        user.setAge(200);
+        userMapper.updateById(user);
     }
 
 }
