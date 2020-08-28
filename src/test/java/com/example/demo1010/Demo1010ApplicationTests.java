@@ -1,5 +1,6 @@
 package com.example.demo1010;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo1010.entity.User;
 import com.example.demo1010.mapper.UserMapper;
@@ -26,7 +27,7 @@ public class Demo1010ApplicationTests {
     }
 
     //增加
-    @Test
+//    @Test
     public void addUser(){
         User user = new User();
         user.setName("王五");
@@ -42,7 +43,7 @@ public class Demo1010ApplicationTests {
     }
 
     //修改
-    @Test
+//    @Test
     public void updateUser(){
         User user = new User();
         user.setId(1298996589896982529L);
@@ -53,7 +54,7 @@ public class Demo1010ApplicationTests {
     }
 
     //测试乐观锁
-    @Test
+//    @Test
     public void testOptimisticLocker(){
         //根据id查询数据
         User user = userMapper.selectById(1298996589896982529L);
@@ -68,7 +69,7 @@ public class Demo1010ApplicationTests {
     }
 
     //分页查询
-    @Test
+//    @Test
     public void testPage(){
         //创建page对象
         //闯入两个参数，当前页和每页显示记录
@@ -85,10 +86,32 @@ public class Demo1010ApplicationTests {
         System.out.println(page.hasNext());
         System.out.println(page.hasPrevious());
     }
-    @Test
+//    @Test
     public void testDeleteById(){
         int result = userMapper.deleteById(1299001129484484609L);
         System.out.println(result);
+    }
+
+    @Test
+    public void testSelectQquery(){
+        //创建QueryWrapper对象
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        //通过QueryWrapper设置条件
+        //ge/gt/le/lt
+//        wrapper.ge("age", 30);
+
+//        wrapper.eq("name","张三");
+//        wrapper.ne("name", "李四");
+
+        //between
+        //年龄在20到30件
+//        wrapper.between("age", 20, 30);
+
+        wrapper.select("id", "name");
+
+        List<User> users = userMapper.selectList(wrapper);
+        System.out.println(users);
+
     }
 
 }
